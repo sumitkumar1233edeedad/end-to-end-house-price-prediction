@@ -1,0 +1,16 @@
+/* Variables & Setup */
+:root {
+    --bg-dark: #09090b;
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-main: #ededed;
+    --text-muted: #a1a1aa;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --accent-glow: rgba(59, 130, 246, 0.5);
+    --gradient-1: #3b82f6;
+    --gradient-2: #8b5cf6;
+    --font-sans: 'Inter', sans-serif;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+ 
