@@ -85,7 +85,7 @@ house-price-predictor/
 
 ```bash
 git clone https://github.com/yourusername/house-price-predictor.git
-cd house-price-predictor
+cd end-to-end-house-price-prediction
 ```
 
 ### 2. Create a Virtual Environment

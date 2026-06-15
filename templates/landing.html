@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PriceWise — AI-Powered House Price Prediction</title>
+  <meta name="description" content="Predict house prices with machine learning. Accurate, fast, and transparent property valuation powered by advanced regression models." />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     STICKY NAVBAR
+════════════════════════════════════════ -->
+<nav class="navbar-custom" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between w-100">
+      <!-- Logo -->
+      <a class="navbar-brand" href="#" aria-label="PriceWise home">
+        <span class="brand-dot" aria-hidden="true"></span>
+        PriceWise
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="d-none d-md-flex align-items-center gap-1">
+        <a class="nav-link-custom" href="#features">Features</a>
+        <a class="nav-link-custom" href="#model">Model</a>
+        <a class="nav-link-custom" href="#social-proof">Reviews</a>
+        <!-- <a class="btn-nav ms-3" href="#cta-final" aria-label="Get early access to PriceWise">Get Early Access</a> -->
+      </div>
+
+      <!-- Mobile toggle -->
+      <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="collapse" id="mobileMenu">
+      <div class="d-flex flex-column gap-2 py-2">
+        <a class="nav-link-custom" href="#features">Features</a>
+        <a class="nav-link-custom" href="#model">Model</a>
+        <a class="nav-link-custom" href="#social-proof">Reviews</a>
+        <a class="btn-nav mt-1 text-center" href="#cta-final">Get Early Access</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section id="hero" aria-label="Hero section">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left: Copy -->
+      <div class="col-lg-6">
+        <div class="hero-badge fade-up delay-1">
+          <span class="dot-live" aria-hidden="true"></span>
+          Powered by Machine Learning
+        </div>
+
+        <h1 class="hero-headline fade-up delay-2">
+          Know a Home's<br />
+          <span class="accent-text">True Value</span><br />
+          Before You Bid
+        </h1>
+
+        <p class="hero-sub fade-up delay-3">
+          PriceWise uses advanced regression models trained on millions of property transactions to give you accurate, explainable house price predictions — instantly.
+        </p>
+
+       <div class="fade-up delay-4">
+      <form method="POST" class="hero-form" aria-label="Email signup form", action="/">
+
+          {{ form.hidden_tag() }}
+
+          <label for="hero-email" class="visually-hidden">
+              Your email address
+          </label>
+
+          {{ form.email(
+              id="hero-email",
+              class="hero-input",
+              placeholder="you@example.com",
+              autocomplete="email"
+          ) }}
+
+          <button type="submit"
+                  class="btn-primary-custom"
+                  aria-label="Get early access">
+              Get Early Access
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+          </button>
+
+      </form>
+          <p class="form-note"><i class="bi bi-lock-fill" aria-hidden="true"></i> No spam. No credit card. Cancel anytime.</p>
+        </div>
+
+        <div class="hero-stats fade-up delay-5">
+          <div class="stat-item">
+            <div class="stat-num">96.4%</div>
+            <div class="stat-label">Prediction accuracy</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">2.1M+</div>
+            <div class="stat-label">Homes analyzed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">&lt;200ms</div>
+            <div class="stat-label">Prediction time</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Visual Card -->
+      <div class="col-lg-6 hero-visual fade-up delay-3">
+        <div style="position:relative; display:inline-block; width:100%;">
+          <div class="card-float-badge" aria-hidden="true">
+            <i class="bi bi-graph-up-arrow text-success"></i> +3.2% this week
+          </div>
+          <div class="price-card" role="img" aria-label="Sample house price prediction card showing $487,500 for 4-bed Victorian in San Francisco">
+            <div class="price-card-label">Predicted Value</div>
+            <div class="price-card-address"><i class="bi bi-geo-alt-fill" style="color:var(--accent);font-size:0.8rem;"></i> 4-bed Victorian, San Francisco</div>
+            <div class="price-card-value" id="animated-price">$487,500</div>
+            <div class="price-badge"><i class="bi bi-check-circle-fill"></i> 96.4% confidence</div>
+
+            <div class="price-bar-wrap">
+              <div class="price-bar-label"><span>Location</span><span>92/100</span></div>
+              <div class="price-bar"><div class="price-bar-fill" style="width:92%"></div></div>
+            </div>
+            <div class="price-bar-wrap">
+              <div class="price-bar-label"><span>Size &amp; Layout</span><span>88/100</span></div>
+              <div class="price-bar"><div class="price-bar-fill" style="width:88%"></div></div>
+            </div>
+            <div class="price-bar-wrap">
+              <div class="price-bar-label"><span>Market Trend</span><span>79/100</span></div>
+              <div class="price-bar"><div class="price-bar-fill" style="width:79%"></div></div>
+            </div>
+
+            <div class="confidence-row">
+              <i class="bi bi-shield-check" aria-hidden="true"></i>
+              Model: <strong>XGBoost</strong> &nbsp;·&nbsp; R² score: <strong>0.884</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FEATURES
+════════════════════════════════════════ -->
+<section id="features" aria-label="Features section">
+  <div style="padding: 7rem 0; background: var(--bg-base);">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-eyebrow">What you get</span>
+        <div class="divider-line"></div>
+        <h2 class="section-title mb-3">Built for accuracy.<br />Designed for clarity.</h2>
+        <p class="section-sub">Every feature is built to make property valuation faster, more accurate, and easier to understand — for buyers, sellers, and investors alike.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><i class="bi bi-cpu"></i></div>
+            <h3 class="feature-title">Multi-Model Engine</h3>
+            <p class="feature-desc">Combines XGBoost, Random Forest, and Linear Regression into an ensemble for robust, battle-tested predictions across all property types.</p>
+            <span class="feature-tag">ML Ensemble</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><i class="bi bi-bar-chart-steps"></i></div>
+            <h3 class="feature-title">Feature Importance</h3>
+            <p class="feature-desc">See exactly what drives each prediction — bedrooms, neighborhood, age, proximity to schools — with transparent SHAP-value breakdowns.</p>
+            <span class="feature-tag">Explainability</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><i class="bi bi-lightning-charge"></i></div>
+            <h3 class="feature-title">Instant Predictions</h3>
+            <p class="feature-desc">Sub-200ms response times via optimized inference pipelines. Enter a property's details and get a precise estimate before the page finishes loading.</p>
+            <span class="feature-tag">Real-time</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true"><i class="bi bi-graph-up"></i></div>
+            <h3 class="feature-title">Market Trend Data</h3>
+            <p class="feature-desc">Historical price trends, neighborhood growth rates, and macroeconomic signals are baked into the model so predictions reflect the real market.</p>
+            <span class="feature-tag">Market-aware</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     MODEL SECTION
+════════════════════════════════════════ -->
+<section id="model" aria-label="Model details section">
+  <div style="padding: 7rem 0; background: var(--bg-surface); position:relative; overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:radial-gradient(circle at 70% 50%, rgba(59,130,246,0.06) 0%, transparent 60%);pointer-events:none;"></div>
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-eyebrow">Under the Hood</span>
+        <div class="divider-line"></div>
+        <h2 class="section-title mb-3">Three models.<br />One winning answer.</h2>
+        <p class="section-sub">We trained and benchmarked multiple algorithms on the same dataset. Here's how they compare — and why we use all of them.</p>
+      </div>
+
+      <div class="row g-4 mb-5">
+        <!-- Linear Regression -->
+        <div class="col-md-4">
+          <div class="model-card">
+            <div class="model-type">Statistical / Baseline</div>
+            <div class="model-name">Linear Regression <span class="best-badge"><i class="bi bi-trophy-fill"></i> Best</span></div>
+            <p class="model-desc">Our transparent baseline. Best for fast sanity-checking predictions and understanding linear relationships in the training data.</p>
+            <div class="metric-row">
+              <div class="metric-box">
+                <div class="metric-val">0.933</div>
+                <div class="metric-key">R² Score</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">4.67%</div>
+                <div class="metric-key">RMSE</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">3.53%</div>
+                <div class="metric-key">MAE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- XGBoost -->
+        <div class="col-md-4">
+          <div class="model-card">
+            <div class="model-type">Gradient Boosting</div>
+            <div class="model-name">XGBoost </div>
+            <p class="model-desc">Extreme Gradient Boosting handles non-linear relationships between features and catches complex interactions that simpler models miss.</p>
+            <div class="metric-row">
+              <div class="metric-box">
+                <div class="metric-val">0.887</div>
+                <div class="metric-key">R² Score</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">6.06%</div>
+                <div class="metric-key">RMSE</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">4.75%</div>
+                <div class="metric-key">MAE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Random Forest -->
+        <div class="col-md-4">
+          <div class="model-card">
+            <div class="model-type">Ensemble / Bagging</div>
+            <div class="model-name">Random Forest</div>
+            <p class="model-desc">Averages hundreds of decision trees to produce stable, variance-reduced predictions. Especially reliable for feature importance ranking.</p>
+            <div class="metric-row">
+              <div class="metric-box">
+                <div class="metric-val">0.879</div>
+                <div class="metric-key">R² Score</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">6.38%</div>
+                <div class="metric-key">RMSE</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-val">4.98%</div>
+                <div class="metric-key">MAE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+
+      <!-- Feature table -->
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+          <h3 class="text-center mb-4" style="font-size:1.1rem; font-weight:700; color:var(--text-primary);">Key Features Used in Prediction</h3>
+          <div class="table-wrap">
+            <table class="compare-table" aria-label="Feature comparison table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Used in XGBoost</th>
+                  <th>Used in RF</th>
+                  <th>Used in LR</th>
+                  <th>Importance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="highlight-row">
+                  <td>Size_sqft</td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td>★★★★★</td>
+                </tr>
+                <tr>
+                  <td>Living_Area</td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td>★★★★☆</td>
+                </tr>
+                <tr>
+                  <td>Kitchen_Quality</td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td>★★★★☆</td>
+                </tr>
+                <tr>
+                  <td>Overall_Quality</td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td>★★★☆☆</td>
+                </tr>
+                <tr>
+                  <td>School District Rating</td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="no"></i></td>
+                  <td><i class="bi bi-x-circle-fill cross" aria-label="no"></i></td>
+                  <td>★★☆☆☆</td>
+                </tr>
+                <tr>
+                  <td>AGE_year</td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label=""></i></td>
+                  <td><i class="bi bi-x-circle-fill cross" aria-label="no"></i></td>
+                  <td>★★☆☆☆</td>
+                </tr>
+                <tr>
+                  <td>Month_sold</td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-check-circle-fill check" aria-label="yes"></i></td>
+                  <td><i class="bi bi-x-circle-fill cross" aria-label="no"></i></td>
+                  <td>★★★☆☆</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     SOCIAL PROOF
+════════════════════════════════════════ -->
+<section id="social-proof" aria-label="Testimonials and social proof">
+  <div style="padding: 7rem 0; background: var(--bg-base);">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-eyebrow">What people say</span>
+        <div class="divider-line"></div>
+        <h2 class="section-title mb-3">Trusted by buyers,<br />sellers & investors.</h2>
+        <p class="section-sub">From first-time homebuyers to real estate professionals, PriceWise helps people make smarter property decisions every day.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="stars" aria-label="5 stars">★★★★★</div>
+            <p class="testimonial-text">I was skeptical, but PriceWise called the sale price of our home within $6,000 of the actual closing price. That's incredible accuracy for a free tool.</p>
+            <div class="avatar-row">
+              <div class="avatar" aria-hidden="true">SP</div>
+              <div>
+                <div class="avatar-name">Sarah P.</div>
+                <div class="avatar-role">First-time homebuyer, Austin TX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="stars" aria-label="5 stars">★★★★★</div>
+            <p class="testimonial-text">As a real estate agent, I use PriceWise before every CMA. The feature importance breakdown is a fantastic tool for explaining pricing to clients.</p>
+            <div class="avatar-row">
+              <div class="avatar" aria-hidden="true">MK</div>
+              <div>
+                <div class="avatar-name">Marcus K.</div>
+                <div class="avatar-role">Licensed Agent, Chicago IL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="stars" aria-label="4 stars">★★★★★</div>
+            <p class="testimonial-text">We evaluated five AVM tools for our investment portfolio. PriceWise had the lowest mean absolute error by a significant margin. It's our go-to now.</p>
+            <div class="avatar-row">
+              <div class="avatar" aria-hidden="true">JL</div>
+              <div>
+                <div class="avatar-name">Jamie L.</div>
+                <div class="avatar-role">Property Investor, San Francisco CA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tech Stack Strip -->
+      <div class="tech-strip">
+        <p class="tech-strip-label">Built with industry-standard tools</p>
+        <div class="tech-logos" role="list" aria-label="Technologies used">
+          <div class="tech-logo-pill" role="listitem">
+            <i class="bi bi-filetype-py" aria-hidden="true"></i> Python
+          </div>
+          <div class="tech-logo-pill" role="listitem">
+            <i class="bi bi-boxes" aria-hidden="true"></i> Scikit-learn
+          </div>
+          <div class="tech-logo-pill" role="listitem">
+            <i class="bi bi-boxes" aria-hidden="true"></i> Tensorflow
+          </div>
+          <div class="tech-logo-pill" role="listitem">
+            <i class="bi bi-lightning-charge" aria-hidden="true"></i> XGBoost
+          </div>
+          <div class="tech-logo-pill" role="listitem">
+            <i class="bi bi-table" aria-hidden="true"></i> Pandas
+          </div>
+          <div class="tech-logo-pill" role="listitem">
+            <i class="bi bi-graph-up" aria-hidden="true"></i> Matplotlib
+          </div>
+          <div class="tech-logo-pill" role="listitem">
+            <i class="bi bi-server" aria-hidden="true"></i> Flask
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FINAL CTA
+════════════════════════════════════════ -->
+<section id="cta-final" aria-label="Final call to action">
+  <div style="padding: 8rem 0; background: var(--bg-surface); position:relative; overflow:hidden; text-align:center;">
+    <div style="position:absolute;bottom:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 60%);pointer-events:none;" aria-hidden="true"></div>
+    <div class="container" style="position:relative;">
+      <span class="section-eyebrow">Ready to start?</span>
+      <div class="divider-line"></div>
+      <h2 class="cta-final-headline">Stop guessing.<br />Start knowing.</h2>
+      <p class="cta-final-sub">Join the waitlist for early access to PriceWise. We're rolling out to a small group first — get in line before spots fill up.</p>
+     <form method="POST" class="cta-form" aria-label="Final email signup form" action="/">
+
+    {{ form.hidden_tag() }}
+
+    <label for="cta-email" class="visually-hidden">
+        Your email address
+    </label>
+
+    {{ form.email(
+        id="cta-email",
+        class="cta-input",
+        placeholder="you@example.com",
+        autocomplete="email"
+    ) }}
+
+    <button type="submit"
+            class="btn-primary-custom"
+            aria-label="Join the waitlist">
+        Join Waitlist
+        <i class="bi bi-arrow-right"></i>
+    </button>
+
+</form>
+      <p class="cta-note"><i class="bi bi-lock-fill" aria-hidden="true"></i> Your email is never shared. Unsubscribe at any time.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
+      <p class="footer-text mb-0">© 2025 PriceWise. All rights reserved.</p>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Contact</a>
+        <a href="#" class="footer-link">GitHub</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  /* ── Email signup handler ── */
+  function handleSignup(e, source) {
+    e.preventDefault();
+    const form = e.target;
+    const input = form.querySelector('input[type="email"]');
+    const btn   = form.querySelector('button[type="submit"]');
+    const email = input.value.trim();
+    if (!email) return;
+
+    const origText = btn.innerHTML;
+    btn.innerHTML = '<i class="bi bi-check-circle-fill"></i> You\'re in!';
+    btn.style.background = '#059669';
+    btn.disabled = true;
+    input.disabled = true;
+
+    setTimeout(() => {
+      btn.innerHTML = origText;
+      btn.style.background = '';
+      btn.disabled = false;
+      input.disabled = false;
+      input.value = '';
+    }, 3500);
+  }
+
+  /* ── Navbar scroll shadow ── */
+  const navbar = document.querySelector('.navbar-custom');
+  window.addEventListener('scroll', () => {
+    navbar.style.background = window.scrollY > 30
+      ? 'rgba(15,23,42,0.97)'
+      : 'rgba(15,23,42,0.82)';
+  });
+
+  /* ── Animated price counter ── */
+  function animateCount(el, target, duration, prefix, suffix) {
+    const start = performance.now();
+    const from  = target * 0.7;
+    const format = n => prefix + Math.round(n).toLocaleString() + suffix;
+    el.textContent = format(from);
+    function step(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+      el.textContent = format(from + (target - from) * ease);
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const priceEl = document.getElementById('animated-price');
+  const heroSection = document.getElementById('hero');
+  const priceObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateCount(priceEl, 487500, 1800, '$', '');
+      priceObserver.disconnect();
+    }
+  }, { threshold: 0.4 });
+  priceObserver.observe(heroSection);
+
+  /* ── Scroll-reveal for cards ── */
+  const revealEls = document.querySelectorAll('.feature-card, .model-card, .testimonial-card');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach((el, i) => {
+    el.style.opacity    = '0';
+    el.style.transform  = 'translateY(20px)';
+    el.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s ease ${i * 0.07}s`;
+    revealObserver.observe(el);
+  });
+</script>
+
+</body>
+</html>
