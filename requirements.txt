@@ -1,6 +1,6 @@
 flask
 flask-wtf
-wtforms
+wtforms[email]
 scikit-learn
 pandas
 numpy
