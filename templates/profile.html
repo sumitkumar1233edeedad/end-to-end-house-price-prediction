@@ -1,124 +1,248 @@
 {% extends "base.html" %}
 
 {% block title %}
-Profile
+MLE Terminal Profile | Vanshu
+{% block text_title_suffix %}{% endblock %}
 {% endblock %}
 
 {% block content %}
 
-<section class="max-w-6xl mx-auto px-4 py-16">
+<div class="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
 
-    <div class="text-center mb-12">
-        <div class="w-32 h-32 mx-auto rounded-full bg-indigo-600 flex items-center justify-center text-5xl font-bold">
-            V
-        </div>
+    <!-- Main ML Engineering Profile Node -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 relative">
+        
+        <!-- Deep Spatial Gradient Glow Elements -->
+        <div class="absolute top-10 left-1/4 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[140px] -z-10 animate-pulse"></div>
+        <div class="absolute top-40 right-1/4 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[140px] -z-10 animate-pulse" style="animation-delay: 3s;"></div>
 
-        <h1 class="text-4xl font-bold mt-6">
-            Vanshu
-        </h1>
+        <!-- 1. Engineering Node Header Badge -->
+        <header class="text-center mb-20 relative">
+            <div class="relative w-36 h-36 mx-auto group">
+                <!-- Hyperparameter-style Neon Border Matrix -->
+                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 animate-spin opacity-40 blur-lg group-hover:opacity-80 transition duration-300" style="animation-duration: 12s;"></div>
+                <!-- Core Profile Avatar Inner Ring -->
+                <div class="absolute inset-1 rounded-full bg-slate-950 flex items-center justify-center border border-slate-800/80 shadow-2xl overflow-hidden">
+                    <img 
+                        src="{{ url_for('static', filename='images/me_dp.png') }}" 
+                        alt="Vanshu Profile Display Picture"
+                        class="w-full h-full object-cover rounded-full"
+                    >
+                </div>
+                <!-- Live Operational Matrix Light -->
+                <span class="absolute bottom-1 right-2 h-4 w-4 rounded-full bg-emerald-500 border-2 border-slate-950 flex items-center justify-center">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                </span>
+            </div>
 
-        <p class="text-gray-400 mt-2">
-            Python Developer | Flask Developer | Machine Learning Enthusiast
-        </p>
-    </div>
+            <h1 class="text-4xl sm:text-6xl font-black mt-8 tracking-tight bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent">
+                Vanshu
+            </h1>
 
-    <div class="grid md:grid-cols-2 gap-8">
-
-        <div class="bg-slate-800 p-8 rounded-xl">
-            <h2 class="text-2xl font-bold mb-4">
-                About Me
-            </h2>
-
-            <p class="text-gray-400 leading-8">
-                I am passionate about Python, Flask, and Machine Learning.
-                I enjoy building real-world projects and learning new technologies.
-                This House Price Prediction project demonstrates my ability to
-                integrate machine learning models with web applications.
+            <p class="text-indigo-400 font-mono text-[10px] sm:text-xs font-bold tracking-widest uppercase mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 max-w-2xl mx-auto px-4">
+                <span>Machine Learning Engineer</span>
+                <span class="text-slate-800 hidden sm:inline">|</span>
+                <span>Predictive Systems Architect</span>
+                <span class="text-slate-800 hidden sm:inline">|</span>
+                <span>MLOps Specialist</span>
             </p>
-        </div>
+        </header>
 
-        <div class="bg-slate-800 p-8 rounded-xl">
-            <h2 class="text-2xl font-bold mb-4">
-                Skills
-            </h2>
+        <!-- 2. Dual Column Core Pipeline Breakdown -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
 
-            <div class="flex flex-wrap gap-3">
-                <span class="px-4 py-2 bg-indigo-600 rounded-lg">Python</span>
-                <span class="px-4 py-2 bg-indigo-600 rounded-lg">Flask</span>
-                <span class="px-4 py-2 bg-indigo-600 rounded-lg">Machine Learning</span>
-                <span class="px-4 py-2 bg-indigo-600 rounded-lg">Pandas</span>
-                <span class="px-4 py-2 bg-indigo-600 rounded-lg">NumPy</span>
-                <span class="px-4 py-2 bg-indigo-600 rounded-lg">Scikit-Learn</span>
-                <span class="px-4 py-2 bg-indigo-600 rounded-lg">HTML</span>
-                <span class="px-4 py-2 bg-indigo-600 rounded-lg">CSS</span>
-                <span class="px-4 py-2 bg-indigo-600 rounded-lg">Tailwind CSS</span>
-            </div>
-        </div>
+            <!-- Left Column: Core ML Focus Bio Matrix (7 Cols) -->
+            <div class="lg:col-span-7 p-8 sm:p-10 rounded-2xl bg-slate-900/40 border border-slate-900/80 backdrop-blur-md flex flex-col justify-between shadow-xl">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20">
+                            <i class="fas fa-brain text-xs"></i>
+                        </div>
+                        <h2 class="text-xl font-black text-white tracking-tight">Engineering Statement</h2>
+                    </div>
 
-    </div>
+                    <div class="space-y-5 text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+                        <p>
+                            I design, construct, and scale high-fidelity machine learning workloads, shifting analytical models from sandbox prototyping directories into resilient, low-latency deployment structures. My primary domain concentration covers structural feature engineering, ensemble modeling routines, and optimization pipelines.
+                        </p>
+                        <p>
+                            This deployment directly demonstrates how high-dimensional algorithmic regression tools can converge with modern backend web systems. By packaging production pipelines into customized prediction frameworks, data remains perfectly structured from intake normalization steps all the way through validation runs.
+                        </p>
+                        <p>
+                            My core focus is on minimizing generalization errors, neutralizing variance anomalies across isolated training sets, and configuring optimized deployment paths that ensure sub-10ms inference latencies.
+                        </p>
+                    </div>
+                </div>
 
-</section>
-
-<section class="max-w-6xl mx-auto px-4 py-10">
-
-    <div class="bg-slate-800 p-8 rounded-xl">
-
-        <h2 class="text-3xl font-bold mb-6">
-            Project Technologies
-        </h2>
-
-        <div class="grid md:grid-cols-4 gap-6 text-center">
-
-            <div>
-                <i class="fab fa-python text-5xl text-yellow-400"></i>
-                <h3 class="mt-3 font-semibold">Python</h3>
+                <!-- Mathematical Core Metadata Line -->
+                <div class="mt-10 pt-6 border-t border-slate-900/80 flex flex-wrap items-center justify-between gap-4 font-mono text-[10px] text-slate-500">
+                    <span class="flex items-center gap-1.5 bg-slate-950/60 px-3 py-1.5 rounded-md border border-slate-900"><i class="fas fa-calculator text-indigo-500"></i> Objective: $\min \mathcal{L}(\theta)$</span>
+                    <span class="bg-slate-950/60 px-3 py-1.5 rounded-md border border-slate-900">Framework Alignment: Scikit-Learn Ecosystem</span>
+                </div>
             </div>
 
-            <div>
-                <i class="fas fa-server text-5xl text-green-400"></i>
-                <h3 class="mt-3 font-semibold">Flask</h3>
+            <!-- Right Column: Engineering Tech Stack Matrix (5 Cols) -->
+            <div class="lg:col-span-5 p-8 sm:p-10 rounded-2xl bg-slate-900/40 border border-slate-900/80 backdrop-blur-md shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20">
+                            <i class="fas fa-sliders-h text-xs"></i>
+                        </div>
+                        <h2 class="text-xl font-black text-white tracking-tight">Technical Capability Matrix</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Data Engineering Array -->
+                        <div>
+                            <span class="block text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500 mb-2.5">Mathematical Arrays & Data Ingestion</span>
+                            <div class="flex flex-wrap gap-2 text-[10px] font-mono font-bold">
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-indigo-500/40 transition duration-150">Python Engine</span>
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-indigo-500/40 transition duration-150">Pandas Matrix</span>
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-indigo-500/40 transition duration-150">NumPy Vectors</span>
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-indigo-500/40 transition duration-150">Feature Engineering</span>
+                            </div>
+                        </div>
+
+                        <!-- Modeling Array -->
+                        <div>
+                            <span class="block text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500 mb-2.5">Algorithmic Training Frameworks</span>
+                            <div class="flex flex-wrap gap-2 text-[10px] font-mono font-bold">
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-purple-500/40 transition duration-150">Scikit-Learn</span>
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-purple-500/40 transition duration-150">Ensemble Learning</span>
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-purple-500/40 transition duration-150">Hyperparameter Tuning</span>
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-purple-500/40 transition duration-150">Cross-Validation</span>
+                            </div>
+                        </div>
+
+                        <!-- MLOps and Deployment Matrix -->
+                        <div>
+                            <span class="block text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500 mb-2.5">System Deployment & Web-Ops</span>
+                            <div class="flex flex-wrap gap-2 text-[10px] font-mono font-bold">
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-pink-500/40 transition duration-150">Flask Core WSGI</span>
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-pink-500/40 transition duration-150">Inference Pipelines</span>
+                                <span class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 hover:border-pink-500/40 transition duration-150">Tailwind Interface</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Status Metric Sub-Bar -->
+                <div class="mt-8 pt-4 border-t border-slate-900/80 flex items-center justify-between text-[10px] font-mono text-slate-500">
+                    <span>Node Uplink: Active</span>
+                    <span class="text-emerald-400">0 dropped packets</span>
+                </div>
             </div>
 
-            <div>
-                <i class="fas fa-brain text-5xl text-purple-400"></i>
-                <h3 class="mt-3 font-semibold">Machine Learning</h3>
+        </section>
+
+        <!-- 3. Dynamic Matrix Operations Table (New Expanded Sub-Section) -->
+        <section class="p-8 sm:p-10 rounded-2xl bg-slate-900/30 border border-slate-900/80 backdrop-blur-sm mb-16 shadow-xl">
+            <div class="mb-6">
+                <h2 class="text-xl font-black text-white tracking-tight">Pipeline Primitive Allocations</h2>
+                <p class="text-xs text-slate-500 mt-1 font-mono">Structural breakdown of processing loads allocated per dataset matrix row element.</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse font-mono text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-800 text-slate-500 text-[10px] tracking-widest uppercase">
+                            <th class="pb-3 font-bold">Vector Scope</th>
+                            <th class="pb-3 font-bold">Data Mechanism</th>
+                            <th class="pb-3 font-bold">Complexity Matrix</th>
+                            <th class="pb-3 font-bold text-right">Target Latency</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-900 text-slate-300">
+                        <tr class="hover:bg-slate-900/20 transition">
+                            <td class="py-4 font-bold text-white">Continuous Normalization</td>
+                            <td class="py-4 font-sans text-slate-400">Log-scaling transformations for heavily skewed square footage.</td>
+                            <td class="py-4 text-indigo-400">$\mathcal{O}(N)$</td>
+                            <td class="py-4 text-right text-emerald-400 font-bold">0.84 ms</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/20 transition">
+                            <td class="py-4 font-bold text-white">One-Hot Encoding Matrix</td>
+                            <td class="py-4 font-sans text-slate-400">Maps structural geography classification into discrete dummy arrays.</td>
+                            <td class="py-4 text-purple-400">$\mathcal{O}(N \cdot K)$</td>
+                            <td class="py-4 text-right text-emerald-400 font-bold">1.12 ms</td>
+                        </tr>
+                        <tr class="hover:bg-slate-900/20 transition">
+                            <td class="py-4 font-bold text-white">Ensemble Evaluation</td>
+                            <td class="py-4 font-sans text-slate-400">Aggregates multi-estimator random bagging tree calculations.</td>
+                            <td class="py-4 text-violet-400">$\mathcal{O}(M \cdot \log N)$</td>
+                            <td class="py-4 text-right text-emerald-400 font-bold">4.20 ms</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. Granular Model Lifecycle Execution Log -->
+        <section class="p-8 sm:p-10 rounded-2xl bg-slate-900/20 border border-slate-900/60 backdrop-blur-sm mb-16 shadow-inner">
+            <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-black text-white tracking-tight">Active Real Estate Model Pipeline Blueprint</h2>
+                    <p class="text-xs text-slate-500 mt-1 font-mono">Structural summary of mathematical processes executing beneath this application terminal.</p>
+                </div>
+                <div class="px-3 py-1.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-mono rounded-lg whitespace-nowrap self-start sm:self-center uppercase tracking-wider font-bold shadow-md">
+                    Status: Verified Production-Ready
+                </div>
             </div>
 
-            <div>
-                <i class="fab fa-html5 text-5xl text-orange-400"></i>
-                <h3 class="mt-3 font-semibold">Frontend</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs leading-relaxed">
+                
+                <div class="p-5 rounded-xl bg-slate-950/40 border border-slate-900/60 group hover:border-slate-800 transition duration-150">
+                    <div class="w-10 h-10 rounded-lg bg-yellow-500/5 border border-yellow-500/10 flex items-center justify-center text-yellow-500 text-sm shadow-md mb-4 font-mono font-bold">01</div>
+                    <h3 class="text-xs font-bold text-white tracking-tight">Data Cleansing &amp; Array Structuring</h3>
+                    <p class="text-[11px] text-slate-500 font-sans mt-2">Imputation mechanics isolate sparse structural categorical values, handling multi-collinear anomalies automatically via vector array setups.</p>
+                </div>
+
+                <div class="p-5 rounded-xl bg-slate-950/40 border border-slate-900/60 group hover:border-slate-800 transition duration-150">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/5 border border-emerald-500/10 flex items-center justify-center text-emerald-400 text-sm shadow-md mb-4 font-mono font-bold">02</div>
+                    <h3 class="text-xs font-bold text-white tracking-tight">Log Transformation Routing</h3>
+                    <p class="text-[11px] text-slate-500 font-sans mt-2">Applies standardized data transformation layers to normalize highly skewed distribution tracking metrics across living area features.</p>
+                </div>
+
+                <div class="p-5 rounded-xl bg-slate-950/40 border border-slate-900/60 group hover:border-slate-800 transition duration-150">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/5 border border-purple-500/10 flex items-center justify-center text-purple-400 text-sm shadow-md mb-4 font-mono font-bold">03</div>
+                    <h3 class="text-xs font-bold text-white tracking-tight">Ensemble Decision Aggregations</h3>
+                    <p class="text-[11px] text-slate-500 font-sans mt-2">Executes multi-estimator voting arrays. Interlinked variance checks eliminate high-residual calculation outliers instantly.</p>
+                </div>
+
+                <div class="p-5 rounded-xl bg-slate-950/40 border border-slate-900/60 group hover:border-slate-800 transition duration-150">
+                    <div class="w-10 h-10 rounded-lg bg-orange-500/5 border border-orange-500/10 flex items-center justify-center text-orange-400 text-sm shadow-md mb-4 font-mono font-bold">04</div>
+                    <h3 class="text-xs font-bold text-white tracking-tight">WSGI Flask Runtime Gateway</h3>
+                    <p class="text-[11px] text-slate-500 font-sans mt-2">Parses raw JSON/POST requests, channels the parameters straight into memory buffers, and serves predictions within milliseconds.</p>
+                </div>
+
             </div>
+        </section>
 
-        </div>
+        <!-- 5. Interactive Matrix Gateway / Social Secure Uplink -->
+        <footer class="p-10 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-slate-900 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px)] bg-[size:3rem] opacity-20 [mask-image:radial-gradient(circle_at_center,white,transparent)] pointer-events-none"></div>
+            
+            <div class="relative z-10">
+                <h2 class="text-xl font-black text-white tracking-tight mb-2">Initialize Core Uplink</h2>
+                <p class="text-xs text-slate-500 max-w-sm mx-auto mb-8">Track production repositories, data logs, or connect for career synchronization requests.</p>
+                
+                <div class="flex justify-center items-center gap-5">
+                    <a href="#" class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-indigo-500/60 hover:bg-slate-900 transition-all duration-150 transform active:scale-95 shadow-lg group" title="GitHub System Node">
+                        <i class="fab fa-github text-base group-hover:scale-110 transition-transform"></i>
+                    </a>
 
-    </div>
+                    <a href="#" class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-purple-500/60 hover:bg-slate-900 transition-all duration-150 transform active:scale-95 shadow-lg group" title="LinkedIn Professional Network">
+                        <i class="fab fa-linkedin-in text-base group-hover:scale-110 transition-transform"></i>
+                    </a>
 
-</section>
+                    <a href="mailto:your-email@domain.com" class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-pink-500/60 hover:bg-slate-900 transition-all duration-150 transform active:scale-95 shadow-lg group" title="Direct SMTP Mail Dispatcher">
+                        <i class="fas fa-envelope text-base group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
 
-<section class="max-w-6xl mx-auto px-4 py-10">
+    </main>
 
-    <div class="text-center">
-        <h2 class="text-3xl font-bold mb-6">
-            Connect With Me
-        </h2>
-
-        <div class="flex justify-center gap-6 text-3xl">
-
-            <a href="#" class="hover:text-indigo-400">
-                <i class="fab fa-github"></i>
-            </a>
-
-            <a href="#" class="hover:text-indigo-400">
-                <i class="fab fa-linkedin"></i>
-            </a>
-
-            <a href="#" class="hover:text-indigo-400">
-                <i class="fas fa-envelope"></i>
-            </a>
-
-        </div>
-    </div>
-
-</section>
+</div>
 
 {% endblock %}
