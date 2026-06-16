@@ -36,7 +36,7 @@ def landing_page():
 # Home Page
 @app.route('/home')
 def home():
-    return render_template('Home.html')
+    return render_template('home.html')
 
 
 # Prediction Route
