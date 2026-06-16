@@ -2,6 +2,8 @@
 
 A full-stack machine learning web application that predicts house prices based on key property features. Built with a clean **HTML/CSS frontend** and a **Python Flask backend**, powered by a trained regression model.
 
+🌐 **Live Demo:** [https://end-to-end-house-price-prediction-dlk5.onrender.com](https://end-to-end-house-price-prediction-dlk5.onrender.com)
+
 ---
 
 ## 📸 Preview
@@ -27,7 +29,7 @@ A full-stack machine learning web application that predicts house prices based o
 
 - **Interactive UI** — Clean HTML/CSS form for entering property details
 - **Real-time Prediction** — Instant price estimates via Flask REST API
-- **ML Model** — Trained Linear Regression / Random Forest model using scikit-learn
+- **ML Model** — Trained Linear Regression model using scikit-learn
 - **Responsive Design** — Works on desktop and mobile browsers
 - **Input Validation** — Frontend and backend validation for clean data entry
 - **JSON API** — RESTful endpoint for easy integration
@@ -40,16 +42,19 @@ A full-stack machine learning web application that predicts house prices based o
 house-price-predictor/
 │
 ├── app.py                  # Flask application & API routes
+├── form.py                 # WTForms registration form
 ├── models/
-|   |──main.ipynb
-|   │         
-│   ├── models/ acutally i make three model
-|
-|              
+│   └── bulided_model_selected_feature/
+│       ├── Linear_model.pkl   # Trained Linear Regression model
+│       └── scaler.pkl         # StandardScaler for feature scaling
+│
 ├── requirements.txt        # Python dependencies
 │
 ├── templates/
-│   └── index.html          # Main HTML page (Jinja2 template)
+│   ├── landing.html        # Landing / registration page
+│   ├── home.html           # Prediction page
+│   ├── about.html          # About page
+│   └── profile.html        # Profile page
 │
 ├── static/
 │   ├── css/
@@ -75,7 +80,7 @@ house-price-predictor/
 | Backend    | Python, Flask            |
 | ML Model   | scikit-learn, pandas     |
 | Data       | NumPy, Matplotlib        |
-| Deployment | Gunicorn / Render / Heroku |
+| Deployment | Gunicorn + Render        |
 
 ---
 
@@ -84,12 +89,9 @@ house-price-predictor/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/house-price-predictor.git
+git clone https://github.com/sumitkumar1233edeedad/end-to-end-house-price-prediction.git
 cd end-to-end-house-price-prediction
 ```
-
-
-
 
 ### 2. Create a Virtual Environment
 
@@ -109,15 +111,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Train the Model
-
-```bash
-python model.py
-```
-
-> This generates `model.pkl` in the root directory.
-
-### 5. Run the Flask App
+### 4. Run the Flask App
 
 ```bash
 python app.py
@@ -133,17 +127,18 @@ Open your browser and go to: **http://127.0.0.1:5000**
 
 Predicts the house price based on input features.
 
-**Request Body (JSON):**
+**Request Body (Form Data):**
 
-```json
-{
-  "area": 1500,
-  "bedrooms": 3,
-  "bathrooms": 2,
-  "location": "downtown",
-  "age": 5
-}
-```
+| Field               | Type    | Description                        |
+|---------------------|---------|------------------------------------|
+| `Size_sqft`         | Float   | Total size in square feet          |
+| `Living_Area_sqft`  | Float   | Living area in square feet         |
+| `Tax_Assessed_Value`| Float   | Tax assessed value of property     |
+| `Full_Baths`        | Integer | Number of full bathrooms           |
+| `Overall_Quality`   | Integer | Overall quality score (1–10)       |
+| `Kitchen_Quality`   | Integer | Kitchen quality score (1–10)       |
+| `Is_Waterfront`     | Integer | Waterfront property? (0 or 1)      |
+| `Zone_Downtown`     | Integer | Downtown zone? (0 or 1)            |
 
 **Response:**
 
@@ -151,17 +146,7 @@ Predicts the house price based on input features.
 {
   "status": "success",
   "predicted_price": 4500000,
-  "currency": "INR",
-  "confidence": "±5%"
-}
-```
-
-**Error Response:**
-
-```json
-{
-  "status": "error",
-  "message": "Invalid input: area must be a positive number"
+  "currency": "USD"
 }
 ```
 
@@ -169,85 +154,14 @@ Predicts the house price based on input features.
 
 ## 🧠 Model Details
 
-| Property         | Details                        |
-|------------------|--------------------------------|
-| Algorithm        | Random Forest Regressor        |
-| Training Data    | 10,000+ housing records        |
-| Features Used    | Area, Bedrooms, Bathrooms, Location, Age |
-| Accuracy (R²)    | ~0.87                          |
-| MAE              | ~₹ 1,20,000                    |
-
-### Input Features
-
-| Feature    | Type    | Description                          |
-|------------|---------|--------------------------------------|
-| `area`     | Integer | Total area in square feet            |
-| `bedrooms` | Integer | Number of bedrooms (1–10)            |
-| `bathrooms`| Integer | Number of bathrooms (1–6)            |
-| `location` | String  | Neighbourhood / city zone            |
-| `age`      | Integer | Age of the property in years         |
-
----
-
-## 💻 Frontend Overview
-
-The UI is built with pure **HTML5 + CSS3**:
-
-- **Form inputs** for all property features
-- **Fetch API** (JavaScript) sends a POST request to `/predict`
-- **Result card** animates in with the predicted price
-- **CSS custom properties** for consistent theming
-- **Mobile-responsive** layout using Flexbox/Grid
-
-```html
-<!-- Example form snippet -->
-<form id="predict-form">
-  <input type="number" id="area" placeholder="Area in sq ft" required />
-  <input type="number" id="bedrooms" placeholder="Bedrooms" min="1" max="10" />
-  <button type="submit">Predict Price</button>
-</form>
-```
-
----
-
-## 🐍 Backend Overview
-
-Flask handles routing, model loading, and prediction:
-
-```python
-from flask import Flask, request, jsonify, render_template
-import pickle, numpy as np
-
-app = Flask(__name__)
-model = pickle.load(open("model.pkl", "rb"))
-
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-@app.route("/predict", methods=["POST"])
-def predict():
-    data = request.get_json()
-    features = np.array([[data["area"], data["bedrooms"],
-                          data["bathrooms"], data["age"]]])
-    price = model.predict(features)[0]
-    return jsonify({"status": "success", "predicted_price": round(price, 2)})
-
-if __name__ == "__main__":
-    app.run(debug=True)
-```
-
----
-
-## 📦 requirements.txt
-
-```
-flask==3.0.0
-scikit-learn==1.4.0
-pandas==2.2.0
-numpy==1.26.4
-gunicorn==21.2.0
-```
+| Property      | Details                                              |
+|---------------|------------------------------------------------------|
+| Algorithm     | Linear Regression                                    |
+| Scaler        | StandardScaler                                       |
+| Training Data | 10,000+ housing records                              |
+| Features Used | Size, Living Area, Baths, Quality, Waterfront, Zone, Tax Value |
+| Accuracy (R²) | ~0.87                                                |
+| MAE           | ~₹ 1,20,000                                          |
 
 ---
 
@@ -260,15 +174,8 @@ gunicorn==21.2.0
 3. Connect your repo
 4. Set **Build Command:** `pip install -r requirements.txt`
 5. Set **Start Command:** `gunicorn app:app`
-6. Click **Deploy**
-
-### Deploy on Heroku
-
-```bash
-heroku create house-price-predictor
-git push heroku main
-heroku open
-```
+6. Add `.python-version` file with `3.11.9`
+7. Click **Deploy**
 
 ---
 
@@ -292,10 +199,10 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## 👤 Author
 
-**Your Name**
-- GitHub: [@smitkumar1233edeedad](https://github.com/sumitkumar1233edeedad)
+**Sumit Kumar**
+- GitHub: [@sumitkumar1233edeedad](https://github.com/sumitkumar1233edeedad)
 - LinkedIn: [linkedin.com/in/sumit-kumar-ml](https://linkedin.com/in/sumit-kumar-ml)
-- Email:  sumitkuamr963@gmail.com
+- Email: sumitkuamr963@gmail.com
 
 ---
 
