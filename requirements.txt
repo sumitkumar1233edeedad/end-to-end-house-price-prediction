@@ -3,3 +3,4 @@ Flask-WTF
 pandas
 joblib
 scikit-learn
+email-validator
