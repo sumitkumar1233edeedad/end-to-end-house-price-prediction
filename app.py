@@ -1,28 +1,35 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
-from form import RegistrationForm
+import os
 import joblib
 import pandas as pd
+from flask import Flask, render_template, redirect, url_for, flash, request
+from form import RegistrationForm
 
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = 'my-secret-key'
+
+# 1. Resolve absolute paths so Vercel always finds your files
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SCALER_PATH = os.path.join(BASE_DIR, 'models', 'bulided_model_selected_feature', 'scaler.pkl')
+MODEL_PATH = os.path.join(BASE_DIR, 'models', 'bulided_model_selected_feature', 'Linear_model.pkl')
+
+# 2. Load model and scaler GLOBALLY once when the application boots up
+try:
+    scaler = joblib.load(SCALER_PATH)
+    model = joblib.load(MODEL_PATH)
+    print("Model and Scaler loaded successfully into memory.")
+except Exception as e:
+    print(f"CRITICAL ERROR: Failed to load model or scaler. Details: {e}")
+    scaler, model = None, None
 
 
 # Landing Page
 @app.route('/', methods=['GET', 'POST'])
 def landing_page():
     form = RegistrationForm()
-
     if form.validate_on_submit():
         email = form.email.data
-
-        flash(
-            f'Welcome, {email}! You registered successfully.',
-            'success'
-        )
-
+        flash(f'Welcome, {email}! You registered successfully.', 'success')
         return redirect(url_for('home'))
-
     return render_template('landing.html', form=form)
 
 
@@ -31,17 +38,16 @@ def landing_page():
 def home():
     return render_template('home.html')
 
-try:
-    scaler = joblib.load('models/bulided_model_selected_feature/scaler.pkl')
-    model = joblib.load('models/bulided_model_selected_feature/Linear_model.pkl')
-except Exception as e:
-    print(f"CRITICAL ERROR: Failed to load model or scaler. Details: {e}")
-    scaler, model = None, None
 
+# Prediction Route
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # 1. Safely extract values from the form
+        # Safety check: Ensure the models are actually loaded
+        if scaler is None or model is None:
+            raise RuntimeError("Machine Learning models failed to load at startup.")
+
+        # 1. Extract values from the form
         size_sqft = float(request.form.get('Size_sqft', 0))
         living_area_sqft = float(request.form.get('Living_Area_sqft', 0))
         tax_assessed_value = float(request.form.get('Tax_Assessed_Value', 0))
@@ -50,21 +56,13 @@ def predict():
         overall_quality = int(request.form.get('Overall_Quality', 5))
         kitchen_quality = int(request.form.get('Kitchen_Quality', 5))
 
-        # Handle checkbox potential double-values safely
         waterfront_list = request.form.getlist('Is_Waterfront')
         is_waterfront = int(waterfront_list[-1]) if waterfront_list else 0
 
         downtown_list = request.form.getlist('Zone_Downtown')
         zone_downtown = int(downtown_list[-1]) if downtown_list else 0
 
-        # 2. Force paths to reload inside the route to guarantee they are alive
-        scaler_path = 'models/bulided_model_selected_feature/scaler.pkl'
-        model_path = 'models/bulided_model_selected_feature/Linear_model.pkl'
-        
-        scale = joblib.load(scaler_path)
-        model = joblib.load(model_path)
-
-        # 3. Format as a raw 2D array matrix (Matches original list format)
+        # 2. Format features directly into a DataFrame
         feature_dict = {
             'Size_sqft': [size_sqft],
             'Living_Area_sqft': [living_area_sqft],
@@ -75,15 +73,13 @@ def predict():
             'Zone_Downtown': [zone_downtown],
             'Tax_Assessed_Value': [tax_assessed_value]
         }
-
-        # Convert dictionary directly into a 1-row Pandas DataFrame
         features_df = pd.DataFrame(feature_dict)
 
-        # 4. Transform and Predict
-        test = scale.transform(features_df)
+        # 3. Transform and Predict using the GLOBAL instances (Super fast!)
+        test = scaler.transform(features_df)
         prediction = model.predict(test)
 
-        # 5. Extract scalar cleanly
+        # 4. Format Output
         predicted_price = float(prediction[0])
         formatted_price = f"${predicted_price:,.2f}"
 
@@ -98,11 +94,9 @@ def predict():
             'Tax_Assessed_Value': f"₹{tax_assessed_value:,.0f}"
         }
 
-
         return render_template('home.html', prediction_text=f'Predicted Price: {formatted_price}', user_inputs=submitted_inputs)
 
     except Exception as e:
-        # This will force the real error to show up in your terminal console log
         print("\n" + "="*50)
         print(f"PIPELINE CRASHED! Actual Error: {str(e)}")
         print("="*50 + "\n")
